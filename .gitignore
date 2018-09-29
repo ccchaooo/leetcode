@@ -11,3 +11,5 @@ vscode.code-workspace
 editworkplace.sublime-workspace
 
 Setting/editworkplace.sublime-workspace
+.idea/workspace.xml
+.gitignore
