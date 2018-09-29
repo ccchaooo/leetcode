@@ -4,6 +4,7 @@
 *.egg
 *.egg-info
 .idea
+.xml
 dist
 build
 vscode.code-workspace
