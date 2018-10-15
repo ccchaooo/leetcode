@@ -64,13 +64,13 @@ class Solution:
                 else:
                     p.value = 0
 
-                # 存入数独酷
-                self.Sudoku[str(x)+str(y)] = p
+                # 存入数独库
+                self.Sudoku[x][y] = p
             return self.Sudoku
 
     # 构建数独库
     def constBoard(self):
-        self.board = [[0]*9 for i in range(9)]
+        self.board = [[0]*9 for i in range(1, 10)]
         for y, row in enumerate(board):
             for x, n in enumerate(row):
                 if n is '.':
@@ -80,7 +80,7 @@ class Solution:
         return True
 
     def constSudoku(self):
-        self.Sudoku  = [list(range(1, 10)) for x in range(1, 10)]
+        self.Sudoku = [list(range(1, 10)) for x in range(9)]
         for y, row in enumerate([list(range(1, 10)) for x in range(1, 10)]):
             for x, n in enumerate(row):
                 p = Point(x, y)
@@ -109,7 +109,7 @@ class Solution:
 
     # 测试专用
     def test(self):
-        s  = [list(range(1, 10)) for x in range(1, 10)]
+        s = [list(range(1, 10)) for x in range(1, 10)]
         for y, row in enumerate([list(range(1, 10)) for x in range(1, 10)]):
             for x, n in enumerate(row):
                 p = Point(x, y)
@@ -131,5 +131,5 @@ board = [["5", "3", ".", ".", "7", ".", ".", ".", "."],
          [".", ".", ".", ".", "8", ".", ".", "7", "9"]]
 
 so = Solution()
-so.test()
-# print(so.solveSudoku(board))
+# so.test()
+print(so.solveSudoku(board))

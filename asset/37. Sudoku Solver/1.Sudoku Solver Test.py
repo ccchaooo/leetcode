@@ -19,7 +19,7 @@ class Point:
     def __init__(self, x, y):
         self.x = x
         self.x = y
-        self.available = []
+        self.available = list(range(1, 10))
         self.value = 0
 
 
@@ -27,65 +27,73 @@ class Solution:
 
     # 创建新的数独库
     def __init__(self):
-        # self.Sudoku = [[0]*9 for i in range(9)]
         self.Sudoku = []
-        self.board = []
 
     # 获取行记录
-    def getRowNums(self, y):
-        return self.board[y]
+    def getRowNums(self, Sudoku, y):
+        return Sudoku[y]
 
     # 获取列记录
-    def getColNums(self, x):
-        return [n[x] for n in self.board]
+    def getColNums(self, Sudoku, x):
+        return [n[x] for n in Sudoku]
 
     # 获取九宫格记录
-    def getCubeNums(self, x, y):
+    def getCubeNums(self,Sudoku, x, y):
         return 0
+    #
+    # def selfCount(self):
+    #     for y, row in enumerate(self.board):
+    #         for x, n in enumerate(row):
+    #             p = Point(x, y)
+    #             # 获取当前行已用的数
+    #             Row = self.getRowNums(y)
+    #
+    #             # 获取当前列已用的数
+    #             Col = self.getColNums(x)
+    #
+    #             # 排除所有已使用的数
+    #             range9 = [x for x in range(1, 10)]
+    #             for x in Row + Col:
+    #                 if x in range9:
+    #                     range9.remove(x)
+    #             p.available = range9
+    #             if len(range9) == 1:
+    #                 p.value = range9[0]
+    #             else:
+    #                 p.value = 0
+    #
+    #             # 存入数独库
+    #             self.Sudoku[x][y] = p
+    #         return self.Sudoku
 
-    def selfCount(self):
-        for y, row in enumerate(self.board):
-            for x, n in enumerate(row):
-                p = Point(x, y)
-                # 获取当前行已用的数
-                Row = self.getRowNums(y)
+    # # 构建数独库
+    # def constBoard(self):
+    #     self.board = [[0]*9 for i in range(1, 10)]
+    #     for y, row in enumerate(board):
+    #         for x, n in enumerate(row):
+    #             if n is '.':
+    #                 self.board[y][x] = 0
+    #             else:
+    #                 self.board[y][x] = int(n)
+    #     return True
 
-                # 获取当前列已用的数
-                Col = self.getColNums(x)
 
-                # 排除所有已使用的数
-                range9 = [x for x in range(1, 10)]
-                for x in Row + Col:
-                    if x in range9:
-                        range9.remove(x)
-                p.available = range9
-                if len(range9) == 1:
-                    p.value = range9[0]
-                else:
-                    p.value = 0
-
-                # 存入数独库
-                self.Sudoku[x][y] = p
-            return self.Sudoku
-
-    # 构建数独库
-    def constBoard(self):
-        self.board = [[0]*9 for i in range(1, 10)]
+    # 将传入数据构造成数独库
+    def constSudoku(self, board):
+        self.Sudoku = [list(range(1, 10)) for x in range(9)]
         for y, row in enumerate(board):
             for x, n in enumerate(row):
-                if n is '.':
-                    self.board[y][x] = 0
-                else:
-                    self.board[y][x] = int(n)
-        return True
-
-    def constSudoku(self):
-        self.Sudoku  = [list(range(1, 10)) for x in range(9)]
-        for y, row in enumerate([list(range(1, 10)) for x in range(1, 10)]):
-            for x, n in enumerate(row):
                 p = Point(x, y)
+                if n is not '.':
+                    p.available = []
+                    p.value = n
                 self.Sudoku[y][x] = p
         return True
+
+
+    def selfCount(self,Sudoku):
+        pass
+
 
     def solveSudoku(self, board):
         """
@@ -98,11 +106,12 @@ class Solution:
                             '20': {}, '21': {}, '22': {}}
 
         # 构建完毕则自我迭代一次
-        if self.constBoard() and self.constSudoku():
-            for y, row in enumerate(self.selfCount()):
-                for x, p in enumerate(row):
-                    if p.value > 0:
-                        self.board[x][y] = p.value
+        if self.constSudoku(board):
+            pass
+            # for y, row in enumerate(self.selfCount()):
+            #     for x, p in enumerate(row):
+            #         if p.value > 0:
+            #             self.board[x][y] = p.value
 
         return True
 
@@ -120,7 +129,7 @@ class Solution:
 
 
 
-board = [["5", "3", ".", ".", "7", ".", ".", ".", "."],
+b = [["5", "3", ".", ".", "7", ".", ".", ".", "."],
          ["6", ".", ".", "1", "9", "5", ".", ".", "."],
          [".", "9", "8", ".", ".", ".", ".", "6", "."],
          ["8", ".", ".", ".", "6", ".", ".", ".", "3"],
@@ -132,4 +141,4 @@ board = [["5", "3", ".", ".", "7", ".", ".", ".", "."],
 
 so = Solution()
 # so.test()
-print(so.solveSudoku(board))
+print(so.solveSudoku(b))
